@@ -1,0 +1,28 @@
+--- a/src/isomedia/box_funcs.c
++++ b/src/isomedia/box_funcs.c
+@@ -1,3 +1,4 @@
++/* Modified by bare-gpac on 2026-10-02: support builds with fragmentation disabled. */
+ /*
+  *			GPAC - Multimedia Framework C SDK
+  *
+--- a/src/isomedia/isom_intern.c
++++ b/src/isomedia/isom_intern.c
+@@ -1,3 +1,4 @@
++/* Modified by bare-gpac on 2026-10-02: support builds with fragmentation disabled. */
+ /*
+  *			GPAC - Multimedia Framework C SDK
+  *
+--- a/src/isomedia/drm_sample.c
++++ b/src/isomedia/drm_sample.c
+@@ -1,3 +1,4 @@
++/* Modified by bare-gpac on 2026-10-02: support builds with fragmentation disabled. */
+ /*
+  *			GPAC - Multimedia Framework C SDK
+  *
+--- a/src/isomedia/meta.c
++++ b/src/isomedia/meta.c
+@@ -1,3 +1,4 @@
++/* Modified by bare-gpac on 2026-10-02: remove references owned by deleted items. */
+ /*
+  *					GPAC Multimedia Framework
+  *

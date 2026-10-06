@@ -1,0 +1,11 @@
+--- a/src/isomedia/meta.c
++++ b/src/isomedia/meta.c
+@@ -1938,7 +1938,7 @@
+ 			GF_ItemReferenceTypeBox *iref = gf_list_get(meta->item_refs->references, i);
+ 			Bool do_delete = GF_FALSE;
+ 			if (iref->from_item_id == item_id) {
+-				do_delete = GF_FALSE;
++				do_delete = GF_TRUE;
+ 			} else {
+ 				u32 k;
+ 				for (k=0; k<iref->reference_count; k++) {

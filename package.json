@@ -1,0 +1,33 @@
+{
+  "name": "bare-gpac",
+  "version": "0.1.0",
+  "description": "GPAC bindings for Bare",
+  "exports": {
+    "./package": "./package.json",
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "binding.js",
+    "binding.c",
+    "CMakeLists.txt",
+    "cmake",
+    "prebuilds",
+    "NOTICE",
+    "LICENSE"
+  ],
+  "addon": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "brittle-bare test.js",
+    "lint": "prettier --check . && lunte",
+    "format": "prettier --write . && lunte --fix"
+  },
+  "devDependencies": {
+    "brittle": "^4.2.0",
+    "cmake-bare": "^1.1.2",
+    "lunte": "^1.8.0",
+    "prettier": "^3.3.3",
+    "prettier-config-holepunch": "^2.0.0"
+  }
+}

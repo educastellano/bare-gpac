@@ -1,0 +1,85 @@
+#ifndef BARE_GPAC_CONFIG_H
+#define BARE_GPAC_CONFIG_H
+
+#define GPAC_CONFIGURATION "bare-gpac/isoff"
+#define GPAC_MINIMAL_ODF
+#define GF_STATIC static
+#define GF_NOT_EXPORTED
+#define GPAC_SCHED_DEFAULT "lock"
+
+#define GPAC_DISABLE_3D
+#define GPAC_DISABLE_COMPOSITOR
+#define GPAC_DISABLE_FONTS
+#define GPAC_DISABLE_SMGR
+#define GPAC_DISABLE_SVG
+#define GPAC_DISABLE_VRML
+#define GPAC_DISABLE_X3D
+#define GPAC_DISABLE_OD_PARSE
+#define GPAC_DISABLE_BIFS
+#define GPAC_DISABLE_BIFS_ENC
+#define GPAC_DISABLE_LASER
+#define GPAC_DISABLE_SAF
+#define GPAC_DISABLE_SENG
+#define GPAC_DISABLE_QTVR
+#define GPAC_DISABLE_AVILIB
+#define GPAC_DISABLE_OGG
+#define GPAC_DISABLE_MPEG2PS
+#define GPAC_DISABLE_MPEG2TS
+#define GPAC_DISABLE_MPEG2TS_MUX
+/* Keep bitstream parsers enabled for AVIF's av1C configuration. */
+#define GPAC_DISABLE_MEDIA_IMPORT
+#define GPAC_DISABLE_MEDIA_EXPORT
+#define GPAC_DISABLE_SWF_IMPORT
+#define GPAC_DISABLE_SCENEGRAPH
+#define GPAC_DISABLE_SCENE_STATS
+#define GPAC_DISABLE_SCENE_DUMP
+#define GPAC_DISABLE_SCENE_ENCODER
+#define GPAC_DISABLE_LOADER_ISOM
+#define GPAC_DISABLE_LOADER_BT
+#define GPAC_DISABLE_LOADER_XMT
+#define GPAC_DISABLE_OD_DUMP
+#define GPAC_DISABLE_ISOM_DUMP
+#define GPAC_DISABLE_CRYPTO
+#define GPAC_DISABLE_ISOM_HINTING
+#define GPAC_DISABLE_ISOM_FRAGMENTS
+#define GPAC_DISABLE_ISOM_ADOBE
+#define GPAC_DISABLE_STREAMING
+#define GPAC_DISABLE_VOBSUB
+#define GPAC_DISABLE_TTXT
+#define GPAC_DISABLE_TTML
+#define GPAC_DISABLE_VTT
+#define GPAC_DISABLE_DOC
+#define GPAC_DISABLE_EVG
+#define GPAC_DISABLE_ROUTE
+#define GPAC_DISABLE_LOG
+#define GPAC_DISABLE_VOUT
+#define GPAC_DISABLE_AOUT
+#define GPAC_DISABLE_NETCAP
+#define GPAC_DISABLE_THREADS
+#define GPAC_DISABLE_NETWORK
+#define GPAC_DISABLE_ZLIB
+#define GPAC_DISABLE_RMTWS
+
+#if defined(_WIN32)
+#define GPAC_CONFIG_WIN32
+#elif defined(__APPLE__)
+#include <TargetConditionals.h>
+#define GPAC_CONFIG_DARWIN
+#if TARGET_OS_IPHONE
+#define GPAC_CONFIG_IOS
+#endif
+#elif defined(__ANDROID__)
+#define GPAC_CONFIG_ANDROID
+#else
+#define GPAC_CONFIG_LINUX
+#endif
+
+#if defined(__LP64__) || defined(_WIN64)
+#define GPAC_64_BITS
+#endif
+
+#if defined(__aarch64__) || defined(__arm__) || defined(_M_ARM64)
+#define GPAC_CONFIG_ARM
+#endif
+
+#endif
