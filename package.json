@@ -23,6 +23,16 @@
     "lint": "prettier --check . && lunte",
     "format": "prettier --write . && lunte --fix"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/bare-gpac.git"
+  },
+  "author": "Holepunch",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/holepunchto/bare-gpac/issues"
+  },
+  "homepage": "https://github.com/holepunchto/bare-gpac#readme",
   "devDependencies": {
     "brittle": "^4.2.0",
     "cmake-bare": "^1.1.2",
