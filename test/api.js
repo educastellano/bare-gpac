@@ -246,6 +246,15 @@ test('findBox() rejects short types', (t) => {
   t.exception.all(() => file.findBox('abc'), RangeError)
 })
 
+test('findBox() rejects long types', (t) => {
+  const input = require('./fixtures/sample.heic', {
+    with: { type: 'binary' }
+  })
+  using file = new ISOFile(input)
+
+  t.exception.all(() => file.findBox('abcde'), RangeError)
+})
+
 test('findBox() is top-level for now', (t) => {
   const input = require('./fixtures/sample.heic', {
     with: { type: 'binary' }
