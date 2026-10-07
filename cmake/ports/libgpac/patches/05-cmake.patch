@@ -1,0 +1,190 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+new file mode 100644
+--- /dev/null
++++ b/CMakeLists.txt
+@@ -0,0 +1,95 @@
++cmake_minimum_required(VERSION 3.31)
++
++project(gpac C)
++
++configure_file(
++  ${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
++  ${CMAKE_CURRENT_BINARY_DIR}/include/config.h
++)
++
++file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/include/gpac/revision.h" "#define GPAC_GIT_REVISION \"${GPAC_GIT_REVISION}\"\n")
++
++add_library(gpac STATIC)
++
++set_target_properties(
++  gpac
++  PROPERTIES
++    POSITION_INDEPENDENT_CODE ON
++    C_VISIBILITY_PRESET hidden
++)
++
++target_include_directories(
++  gpac
++  PUBLIC
++    ${CMAKE_CURRENT_SOURCE_DIR}/include
++    ${CMAKE_CURRENT_BINARY_DIR}/include
++)
++
++target_compile_definitions(
++  gpac
++  PUBLIC
++    GPAC_HAVE_CONFIG_H
++    GPAC_STATIC_LIB
++  PRIVATE
++    GF_EXPORT=
++    GPAC_DISABLE_REMOTERY
++)
++
++target_sources(
++  gpac
++  PRIVATE
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/avc_ext.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/box_code_3gpp.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/box_code_apple.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/box_code_base.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/box_code_drm.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/box_code_meta.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/box_funcs.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/data_map.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/drm_sample.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/isom_intern.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/isom_read.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/isom_store.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/isom_write.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/media.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/media_odf.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/meta.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/sample_descs.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/stbl_read.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/stbl_write.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/track.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/tx3g.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/isomedia/iff.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/odf/desc_private.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/odf/descriptors.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/odf/odf_code.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/odf/odf_codec.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/odf/odf_command.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/odf/slc.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/os_divers.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/os_file.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/list.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/bitstream.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/constants.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/error.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/alloc.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/url.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/configfile.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/gzio.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/os_thread.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/os_config_init.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/utf.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/token.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/base_encoding.c
++    ${CMAKE_CURRENT_SOURCE_DIR}/src/media_tools/av_parsers.c
++)
++
++if(UNIX)
++  target_compile_options(gpac PRIVATE -ffunction-sections -fdata-sections -Wno-pointer-sign)
++  target_link_libraries(gpac PRIVATE m ${CMAKE_DL_LIBS})
++endif()
++
++install(TARGETS gpac ARCHIVE DESTINATION lib)
++install(DIRECTORY include/gpac DESTINATION include)
++install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/config.h" DESTINATION include)
++install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/gpac/revision.h" DESTINATION include/gpac)
+diff --git a/config.h.in b/config.h.in
+new file mode 100644
+--- /dev/null
++++ b/config.h.in
+@@ -0,0 +1,85 @@
++#ifndef BARE_GPAC_CONFIG_H
++#define BARE_GPAC_CONFIG_H
++
++#define GPAC_CONFIGURATION "bare-gpac/isoff"
++#define GPAC_MINIMAL_ODF
++#define GF_STATIC static
++#define GF_NOT_EXPORTED
++#define GPAC_SCHED_DEFAULT "lock"
++
++#define GPAC_DISABLE_3D
++#define GPAC_DISABLE_COMPOSITOR
++#define GPAC_DISABLE_FONTS
++#define GPAC_DISABLE_SMGR
++#define GPAC_DISABLE_SVG
++#define GPAC_DISABLE_VRML
++#define GPAC_DISABLE_X3D
++#define GPAC_DISABLE_OD_PARSE
++#define GPAC_DISABLE_BIFS
++#define GPAC_DISABLE_BIFS_ENC
++#define GPAC_DISABLE_LASER
++#define GPAC_DISABLE_SAF
++#define GPAC_DISABLE_SENG
++#define GPAC_DISABLE_QTVR
++#define GPAC_DISABLE_AVILIB
++#define GPAC_DISABLE_OGG
++#define GPAC_DISABLE_MPEG2PS
++#define GPAC_DISABLE_MPEG2TS
++#define GPAC_DISABLE_MPEG2TS_MUX
++/* Keep bitstream parsers enabled for AVIF's av1C configuration. */
++#define GPAC_DISABLE_MEDIA_IMPORT
++#define GPAC_DISABLE_MEDIA_EXPORT
++#define GPAC_DISABLE_SWF_IMPORT
++#define GPAC_DISABLE_SCENEGRAPH
++#define GPAC_DISABLE_SCENE_STATS
++#define GPAC_DISABLE_SCENE_DUMP
++#define GPAC_DISABLE_SCENE_ENCODER
++#define GPAC_DISABLE_LOADER_ISOM
++#define GPAC_DISABLE_LOADER_BT
++#define GPAC_DISABLE_LOADER_XMT
++#define GPAC_DISABLE_OD_DUMP
++#define GPAC_DISABLE_ISOM_DUMP
++#define GPAC_DISABLE_CRYPTO
++#define GPAC_DISABLE_ISOM_HINTING
++#define GPAC_DISABLE_ISOM_FRAGMENTS
++#define GPAC_DISABLE_ISOM_ADOBE
++#define GPAC_DISABLE_STREAMING
++#define GPAC_DISABLE_VOBSUB
++#define GPAC_DISABLE_TTXT
++#define GPAC_DISABLE_TTML
++#define GPAC_DISABLE_VTT
++#define GPAC_DISABLE_DOC
++#define GPAC_DISABLE_EVG
++#define GPAC_DISABLE_ROUTE
++#define GPAC_DISABLE_LOG
++#define GPAC_DISABLE_VOUT
++#define GPAC_DISABLE_AOUT
++#define GPAC_DISABLE_NETCAP
++#define GPAC_DISABLE_THREADS
++#define GPAC_DISABLE_NETWORK
++#define GPAC_DISABLE_ZLIB
++#define GPAC_DISABLE_RMTWS
++
++#if defined(_WIN32)
++#define GPAC_CONFIG_WIN32
++#elif defined(__APPLE__)
++#include <TargetConditionals.h>
++#define GPAC_CONFIG_DARWIN
++#if TARGET_OS_IPHONE
++#define GPAC_CONFIG_IOS
++#endif
++#elif defined(__ANDROID__)
++#define GPAC_CONFIG_ANDROID
++#else
++#define GPAC_CONFIG_LINUX
++#endif
++
++#if defined(__LP64__) || defined(_WIN64)
++#define GPAC_64_BITS
++#endif
++
++#if defined(__aarch64__) || defined(__arm__) || defined(_M_ARM64)
++#define GPAC_CONFIG_ARM
++#endif
++
++#endif
