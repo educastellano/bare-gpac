@@ -2,8 +2,11 @@
 
 GPAC bindings for Bare.
 
-> [!IMPORTANT]
-> Only the isomedia API is currently supported.
+```sh
+npm install bare-gpac
+```
+
+## Usage
 
 ```js
 const gpac = require('bare-gpac')
@@ -22,6 +25,9 @@ const output = file.write()
 ```
 
 ## API
+
+> [!IMPORTANT]
+> Only the isomedia API is currently supported.
 
 ### ISOFile
 
