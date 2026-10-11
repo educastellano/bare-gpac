@@ -98,7 +98,7 @@ if(IOS)
 elseif(ANDROID)
   string(APPEND cflags " -DGPAC_CONFIG_ANDROID")
 elseif(WIN32)
-  string(APPEND cflags " -DWIN32")
+  string(APPEND cflags " -DWIN32 -DWIN32_LEAN_AND_MEAN")
   if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     string(APPEND cflags " -fms-runtime-lib=static_dbg")
   else()
@@ -124,6 +124,7 @@ declare_port(
   PATCHES
     patches/01-remove-item-references.patch
     patches/02-library-only.patch
+    patches/03-windows-compat.patch
 )
 
 add_library(gpac STATIC IMPORTED GLOBAL)

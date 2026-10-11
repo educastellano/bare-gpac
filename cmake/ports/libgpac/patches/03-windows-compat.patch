@@ -1,0 +1,74 @@
+--- a/include/gpac/thread.h
++++ b/include/gpac/thread.h
+@@ -1,3 +1,4 @@
++/* Modified 2026-10-11 */
+ /*
+  *			GPAC - Multimedia Framework C SDK
+  *
+@@ -90,9 +91,9 @@
+ 
+ 
+ /*! atomic integer increment */
+-#define safe_int_inc(__v) InterlockedIncrement((int *) (__v))
++#define safe_int_inc(__v) InterlockedIncrement((LONG *) (__v))
+ /*! atomic integer decrement */
+-#define safe_int_dec(__v) InterlockedDecrement((int *) (__v))
++#define safe_int_dec(__v) InterlockedDecrement((LONG *) (__v))
+ /*! atomic integer addition */
+ 
+ /* Modified by M. Lackner for XP & XP x64 compatibility */
+@@ -104,10 +105,10 @@
+ https://docs.microsoft.com/en-us/windows/win32/api/winnt/nf-winnt-interlockedexchangeadd64
+ */
+ 
+-#define safe_int_add(__v, inc_val) InterlockedExchangeAdd((int *) (__v), inc_val)
+-#define safe_int_sub(__v, dec_val) InterlockedExchangeAdd((int *) (__v), -dec_val)
++#define safe_int_add(__v, inc_val) InterlockedExchangeAdd((LONG *) (__v), inc_val)
++#define safe_int_sub(__v, dec_val) InterlockedExchangeAdd((LONG *) (__v), -dec_val)
+ /*! atomic add and gets the value *before* the add */
+-#define safe_int_fetch_add(__v, inc_val) InterlockedExchangeAdd((int *) (__v), inc_val)
++#define safe_int_fetch_add(__v, inc_val) InterlockedExchangeAdd((LONG *) (__v), inc_val)
+ #ifdef GPAC_64_BITS
+ #define safe_int64_add(__v, inc_val) InterlockedExchangeAdd64((LONGLONG *) (__v), inc_val)
+ #define safe_int64_sub(__v, dec_val) InterlockedExchangeAdd64((LONGLONG *) (__v), -dec_val)
+@@ -120,19 +121,19 @@
+ #else //not winxp
+ 
+ /*! atomic integer increment */
+-#define safe_int_inc(__v) InterlockedIncrement((int *) (__v))
++#define safe_int_inc(__v) InterlockedIncrement((LONG *) (__v))
+ /*! atomic integer decrement */
+-#define safe_int_dec(__v) InterlockedDecrement((int *) (__v))
++#define safe_int_dec(__v) InterlockedDecrement((LONG *) (__v))
+ /*! atomic integer addition */
+-#define safe_int_add(__v, inc_val) InterlockedAdd((int *) (__v), inc_val)
++#define safe_int_add(__v, inc_val) InterlockedAdd((LONG *) (__v), inc_val)
+ /*! atomic integer subtraction */
+-#define safe_int_sub(__v, dec_val) InterlockedAdd((int *) (__v), -dec_val)
++#define safe_int_sub(__v, dec_val) InterlockedAdd((LONG *) (__v), -dec_val)
+ /*! atomic large integer addition */
+ #define safe_int64_add(__v, inc_val) InterlockedAdd64((LONG64 *) (__v), inc_val)
+ /*! atomic large integer subtraction */
+ #define safe_int64_sub(__v, dec_val) InterlockedAdd64((LONG64 *) (__v), -dec_val)
+ /*! atomic add and gets the value *before* the add */
+-#define safe_int_fetch_add(__v, inc_val) InterlockedExchangeAdd((int *) (__v), inc_val)
++#define safe_int_fetch_add(__v, inc_val) InterlockedExchangeAdd((LONG *) (__v), inc_val)
+ #endif //winxp
+ 
+ #else //not windows
+--- a/src/utils/error.c
++++ b/src/utils/error.c
+@@ -1,3 +1,4 @@
++/* Modified 2026-10-11 */
+ /*
+  *			GPAC - Multimedia Framework C SDK
+  *
+@@ -1107,7 +1108,7 @@
+ }
+ 
+ GF_EXPORT
+-void gf_log_check_error(GF_LOG_Level loglev, GF_LOG_Tool logtool)
++void gf_log_check_error(u32 loglev, u32 logtool)
+ {
+ 	if (log_exit_on_error && (loglev==GF_LOG_ERROR) && (logtool != GF_LOG_MEMORY)) {
+ 		exit(1);
