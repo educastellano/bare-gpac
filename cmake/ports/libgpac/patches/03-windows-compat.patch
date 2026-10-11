@@ -72,3 +72,22 @@
  {
  	if (log_exit_on_error && (loglev==GF_LOG_ERROR) && (logtool != GF_LOG_MEMORY)) {
  		exit(1);
+--- a/src/utils/os_net.c
++++ b/src/utils/os_net.c
+@@ -1,3 +1,4 @@
++/* Modified 2026-10-11 */
+ /*
+  *			GPAC - Multimedia Framework C SDK
+  *
+@@ -4522,7 +4523,11 @@
+ 
+ #else
+ //for ntoh/hton
++#ifdef WIN32
++#include <winsock2.h>
++#else
+ #include <arpa/inet.h>
++#endif
+ #endif //GPAC_DISABLE_NETWORK
+ 
+ GF_EXPORT

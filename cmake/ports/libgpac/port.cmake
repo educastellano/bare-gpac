@@ -155,5 +155,5 @@ target_compile_definitions(
 if(UNIX)
   target_link_libraries(gpac INTERFACE m ${CMAKE_DL_LIBS})
 elseif(WIN32)
-  target_link_libraries(gpac INTERFACE winmm shell32 advapi32)
+  target_link_libraries(gpac INTERFACE winmm shell32 advapi32 ws2_32)
 endif()
