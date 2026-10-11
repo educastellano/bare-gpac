@@ -1,6 +1,11 @@
 --- a/src/isomedia/meta.c
 +++ b/src/isomedia/meta.c
-@@ -1938,7 +1938,7 @@
+@@ -1,3 +1,4 @@
++/* Modified 2026-10-02 */
+ /*
+  *					GPAC Multimedia Framework
+  *
+@@ -1938,7 +1939,7 @@
  			GF_ItemReferenceTypeBox *iref = gf_list_get(meta->item_refs->references, i);
  			Bool do_delete = GF_FALSE;
  			if (iref->from_item_id == item_id) {
