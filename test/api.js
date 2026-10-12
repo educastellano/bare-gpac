@@ -1,4 +1,5 @@
 const test = require('brittle')
+const os = require('bare-os')
 const { ISOFile, Box } = require('..')
 const fixture = require('./helpers/fixture')
 
@@ -381,6 +382,25 @@ test('write() preserves data across multiple output chunks', (t) => {
   using next = new ISOFile(output)
 
   t.alike(next.readItem(1), image)
+})
+
+test('write() does not require temporary files', { skip: os.platform() !== 'darwin' }, (t) => {
+  const input = require('./fixtures/sample.heic', {
+    with: { type: 'binary' }
+  })
+  const tmpdir = os.getEnv('TMPDIR')
+
+  os.setEnv('TMPDIR', '/dev/null')
+
+  try {
+    using file = new ISOFile(input)
+    const output = file.write()
+    // won't reach here if it tries writing to TMPDIR, which now points to a file
+    t.ok(output)
+  } finally {
+    if (tmpdir === undefined) os.unsetEnv('TMPDIR')
+    else os.setEnv('TMPDIR', tmpdir)
+  }
 })
 
 test('write() closes the file', (t) => {

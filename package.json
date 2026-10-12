@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/holepunchto/bare-gpac#readme",
   "devDependencies": {
+    "bare-os": "^3.9.3",
     "brittle": "^4.2.0",
     "cmake-bare": "^1.1.2",
     "cmake-ports": "^1.12.0",
