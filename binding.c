@@ -206,7 +206,7 @@ bare_gpac_init(js_env_t *env, js_callback_info_t *info) {
   char url[64];
   snprintf(url, sizeof(url), "gmem://%p", (void *) &self->input);
 
-  self->handle = gf_isom_open(url, GF_ISOM_OPEN_EDIT, NULL);
+  self->handle = gf_isom_open(url, GF_ISOM_OPEN_READ_EDIT, NULL);
 
   if (self->handle == NULL) {
     GF_Err code = gf_isom_last_error(NULL);
@@ -820,6 +820,8 @@ bare_gpac_write(js_env_t *env, js_callback_info_t *info) {
   }
 
   bare_gpac_output_t output = {0};
+
+  self->handle->openMode = GF_ISOM_OPEN_EDIT;
 
   GF_Err code = gf_isom_set_storage_mode(self->handle, GF_ISOM_STORE_STREAMABLE);
 
